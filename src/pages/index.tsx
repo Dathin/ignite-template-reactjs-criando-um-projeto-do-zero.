@@ -37,16 +37,16 @@ export default function Home({ postsPagination }: HomeProps) {
           <strong>{post.data.title}</strong>
           <p>{post.data.subtitle}</p>
           <div>
-            <div>
-              <FiCalendar />
+            <span>
+              <FiCalendar size="19.09" />
               <time>
                 {toDefaultAppFormat(new Date(post.first_publication_date))}
               </time>
-            </div>
-            <div>
-              <FiAnchor />
+            </span>
+            <span>
+              <FiAnchor size="19.09" />
               <time>{post.data.author}</time>
-            </div>
+            </span>
           </div>
         </a>
       ))}

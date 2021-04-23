@@ -3,16 +3,19 @@
     margin: 3rem auto 0 auto;
 
     a {
+        &:hover {
+            strong {
+                transition: color .5s;
+                color: var(--highlight);
+            }
+        }
+
+        cursor: pointer;
         color: var(--body);
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 1.3rem;
 
-        transition: color .2s;
-
-        &:hover {
-            color: var(--highlight);
-        }
 
         strong {
             color: var(--heading);
@@ -20,9 +23,6 @@
             font-size: 1.5rem;
             line-height: 2rem;
             letter-spacing: -0.5px;
-            &:hover {
-                color: var(--highlight);
-            }
         }
 
         p {
@@ -30,15 +30,22 @@
         }
 
         div {
-            margin-top: 1rem;
+            margin-top: .5rem;
             display: inline-block;
-            span {
-                margin-left: 1rem;
-            }
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
 
             time {
                 padding: 0 1.5rem 0 1rem;
             }
+
+            span {
+                display: flex;
+                align-items: center;
+                line-height: 100%;
+            }
+
         }
     }
 
