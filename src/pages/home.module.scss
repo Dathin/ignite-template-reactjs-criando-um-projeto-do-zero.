@@ -1,1 +1,45 @@
-// TODO
+.container {
+    max-width: 720px;
+    margin: 3rem auto 0 auto;
+
+    a {
+        color: var(--body);
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 1.3rem;
+
+        transition: color .2s;
+
+        &:hover {
+            color: var(--highlight);
+        }
+
+        strong {
+            color: var(--heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            letter-spacing: -0.5px;
+            &:hover {
+                color: var(--highlight);
+            }
+        }
+
+        p {
+            margin-top: .5rem;
+        }
+
+        div {
+            margin-top: 1rem;
+            display: inline-block;
+            span {
+                margin-left: 1rem;
+            }
+
+            time {
+                padding: 0 1.5rem 0 1rem;
+            }
+        }
+    }
+
+}
