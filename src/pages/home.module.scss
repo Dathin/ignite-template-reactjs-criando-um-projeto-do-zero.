@@ -1,52 +1,72 @@
 .container {
+
     max-width: 720px;
     margin: 3rem auto 0 auto;
+    
+    main {
 
-    a {
-        &:hover {
+    
+        a {
+            &:hover {
+                strong {
+                    transition: color .2s;
+                    color: var(--highlight);
+                }
+            }
+    
+            cursor: pointer;
+            color: var(--body);
+            font-weight: 400;
+            font-size: 1.2rem;
+            line-height: 1.3rem;
+    
+    
             strong {
-                transition: color .5s;
-                color: var(--highlight);
+                color: var(--heading);
+                font-weight: 700;
+                font-size: 1.5rem;
+                line-height: 2rem;
+                letter-spacing: -0.5px;
             }
-        }
-
-        cursor: pointer;
-        color: var(--body);
-        font-weight: 400;
-        font-size: 1.2rem;
-        line-height: 1.3rem;
-
-
-        strong {
-            color: var(--heading);
-            font-weight: 700;
-            font-size: 1.5rem;
-            line-height: 2rem;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            margin-top: .5rem;
-        }
-
-        div {
-            margin-top: .5rem;
-            display: inline-block;
-            display: flex;
-            flex-flow: row wrap;
-            align-items: center;
-
-            time {
-                padding: 0 1.5rem 0 1rem;
+    
+            p {
+                margin-top: .5rem;
             }
-
-            span {
+    
+            div {
+                margin-top: .5rem;
+                display: inline-block;
                 display: flex;
+                flex-flow: row wrap;
                 align-items: center;
-                line-height: 100%;
+    
+                time {
+                    padding: 0 1.5rem 0 1rem;
+                }
+    
+                span {
+                    display: flex;
+                    align-items: center;
+                    line-height: 100%;
+                }
+    
             }
-
         }
     }
 
+
+    button {
+        transition: filter .2s;
+        background-color: var(--background);
+        color: var(--highlight);
+        border: none;
+        margin-top: 4rem;
+        font-weight: 600;
+        font-size: 1.15rem;
+        line-height: 1.33rem;
+
+        &:hover {
+            filter: brightness(70%)
+        }
+    }
 }

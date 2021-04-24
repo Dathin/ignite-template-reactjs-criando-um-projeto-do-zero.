@@ -6,7 +6,7 @@ import { getPrismicClient } from '../services/prismic';
 import styles from './home.module.scss';
 import { toDefaultAppFormat } from '../util/dateUtil';
 import { get } from '../services/fetch';
-import { mapPrismicResponseToPostPagination } from '../maper/prismicResponse';
+import { mapPrismicResponseToPostPagination } from '../mapper/prismicResponse';
 
 export interface PrismicResponse {
   next_page: string;
@@ -55,8 +55,8 @@ export default function Home({ postsPagination }: HomeProps) {
     }
   }
   return (
-    <>
-      <main className={styles.container}>
+    <div className={styles.container}>
+      <main>
         {posts.map(post => (
           <a key={post.uid}>
             <strong>{post.data.title}</strong>
@@ -76,8 +76,8 @@ export default function Home({ postsPagination }: HomeProps) {
           </a>
         ))}
       </main>
-      <div onClick={loadMorePosts}>Carregar mais posts</div>
-    </>
+      <button type="button" onClick={loadMorePosts}>Carregar mais posts</button>
+    </div>
   );
 }
 
