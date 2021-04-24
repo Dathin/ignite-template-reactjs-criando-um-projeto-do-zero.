@@ -10,8 +10,13 @@ export const mapPrismicResponseToPostPagination = ({
     first_publication_date,
     data: {
       title:
-        data.title.find((title: { type: string }) => title.type === 'heading1')
-          ?.text ?? '',
+        typeof data.title === 'string'
+          ? data.title
+          : data.title.find(
+              (title: { type: string }) => title.type === 'heading1'
+            )?.text ?? '',
+      // data.title.find((title: { type: string }) => title.type === 'heading1')
+      //   ?.text ?? '',
       subtitle: data.subtitle,
       author: data.author,
     },
