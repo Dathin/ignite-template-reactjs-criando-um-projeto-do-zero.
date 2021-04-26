@@ -1,14 +1,14 @@
 import { FiCalendar, FiAnchor } from 'react-icons/fi';
 import Prismic from '@prismicio/client';
 import { useState } from 'react';
+import Link from 'next/link';
 import { getPrismicClient } from '../services/prismic';
 
 import styles from './home.module.scss';
-import { toDefaultAppFormat } from '../util/dateUtil';
 import { get } from '../services/fetch';
-import { mapPrismicResponseToPostPagination } from '../mapper/prismicResponse';
+import { mapPrismicPostsToPostPagination } from '../mapper/prismicResponse';
 
-export interface PrismicResponse {
+export interface PrismicPosts {
   next_page: string;
   results: {
     uid: string;
@@ -46,10 +46,8 @@ export default function Home({ postsPagination }: HomeProps) {
 
   async function loadMorePosts(): Promise<void> {
     if (nextPage) {
-      const prismicResponse = await get<PrismicResponse>(nextPage);
-      const postPagination = mapPrismicResponseToPostPagination(
-        prismicResponse
-      );
+      const prismicResponse = await get<PrismicPosts>(nextPage);
+      const postPagination = mapPrismicPostsToPostPagination(prismicResponse);
       setPosts([...posts, ...postPagination.results]);
       setNextPage(postPagination.next_page);
     }
@@ -58,25 +56,29 @@ export default function Home({ postsPagination }: HomeProps) {
     <div className={styles.container}>
       <main>
         {posts.map(post => (
-          <a key={post.uid}>
-            <strong>{post.data.title}</strong>
-            <p>{post.data.subtitle}</p>
-            <div>
-              <span>
-                <FiCalendar size="19.09" />
-                <time>
-                  {toDefaultAppFormat(new Date(post.first_publication_date))}
-                </time>
-              </span>
-              <span>
-                <FiAnchor size="19.09" />
-                <time>{post.data.author}</time>
-              </span>
-            </div>
-          </a>
+          <Link href={`post/${post.uid}`}>
+            <a key={post.uid}>
+              <strong>{post.data.title}</strong>
+              <p>{post.data.subtitle}</p>
+              <div>
+                <span>
+                  <FiCalendar size="19.09" />
+                  <time>{post.first_publication_date}</time>
+                </span>
+                <span>
+                  <FiAnchor size="19.09" />
+                  <time>{post.data.author}</time>
+                </span>
+              </div>
+            </a>
+          </Link>
         ))}
       </main>
-      <button type="button" onClick={loadMorePosts}>Carregar mais posts</button>
+      {nextPage && (
+        <button type="button" onClick={loadMorePosts}>
+          Carregar mais posts
+        </button>
+      )}
     </div>
   );
 }
@@ -88,9 +90,9 @@ export const getStaticProps = async () => {
     {
       pageSize: 1,
     }
-  )) as PrismicResponse;
+  )) as PrismicPosts;
 
-  const postsPagination = mapPrismicResponseToPostPagination(response);
+  const postsPagination = mapPrismicPostsToPostPagination(response);
   return {
     props: {
       postsPagination,
