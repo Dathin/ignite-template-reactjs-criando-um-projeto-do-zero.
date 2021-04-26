@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import { FiCalendar } from 'react-icons/fi';
 import { mapPrismicPostToPostProps } from '../../mapper/prismicResponse';
 
@@ -30,8 +31,12 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps): JSX.Element {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <h1>Fon trab xD</h1>;
+  }
   return (
-    <>
+    <div className={styles.container}>
       <img src={post.data.banner.url} alt="Post Banner" />
       <main>
         <h1>{post.data.title}</h1>
@@ -58,14 +63,14 @@ export default function Post({ post }: PostProps): JSX.Element {
           </>
         ))}
       </main>
-    </>
+    </div>
   );
 }
 
 export const getStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: true,
   };
 };
 
@@ -77,6 +82,6 @@ export const getStaticProps = async ({ params }) => {
     props: {
       post: mapPrismicPostToPostProps(prismicPost),
     },
-    //revalidate: 60 * 30, // 30 minutes
+    revalidate: 60 * 30, // 30 minutes
   };
 };

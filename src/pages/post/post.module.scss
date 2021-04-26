@@ -1,1 +1,19 @@
-// TODO
+.container {
+    img {
+        margin-top: 3rem;
+        width: 100%;
+    }
+
+    main {
+        max-width: 720px;
+        margin: 3rem auto 0 auto;
+        h1 {
+            color: var(--heading);
+            font-weight: 700;
+            font-size: 3rem;
+            line-height: 4rem;
+            letter-spacing: -0.5px;
+        }
+    }
+}
+
