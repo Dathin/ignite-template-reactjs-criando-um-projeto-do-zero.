@@ -1,19 +1,17 @@
 import {
-  GetStaticPaths,
   GetStaticPathsContext,
   GetStaticPathsResult,
-  GetStaticProps,
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from 'next';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { ParsedUrlQuery } from 'node:querystring';
 import { FiCalendar } from 'react-icons/fi';
 import { mapPrismicPostToPostProps } from '../../mapper/prismicResponse';
 
 import { getPrismicClient } from '../../services/prismic';
 
-import commonStyles from '../../styles/common.module.scss';
 import { toDefaultAppFormat } from '../../util/dateUtil';
 import styles from './post.module.scss';
 
@@ -60,8 +58,13 @@ export default function Post({ post }: PostProps): JSX.Element {
 
   return (
     <div className={styles.container}>
-      {/* use next image */}
-      <img src={post.data.banner.url} alt="Post Banner" />
+      <Image
+        src={post.data.banner.url}
+        alt="Post Banner"
+        width={1}
+        height={0.38}
+        layout="responsive"
+      />
       <main>
         <h1>{post.data.title}</h1>
         <div>

@@ -1,6 +1,5 @@
 import { PostPagination, PrismicPosts } from '../pages';
 import { Post } from '../pages/post/[slug]';
-import { toDefaultAppFormat } from '../util/dateUtil';
 
 export const mapPrismicPostsToPostPagination = ({
   next_page,
@@ -28,7 +27,6 @@ export const mapPrismicPostToPostProps = ({
   uid,
   data,
 }: any): Post => {
-  let words = 0;
   return {
     first_publication_date,
     uid,
@@ -47,7 +45,6 @@ export const mapPrismicPostToPostProps = ({
       content: data.content.map(content => ({
         heading: content.heading,
         body: content.body.map(body => {
-          words += body.text.split(' ').length;
           return {
             text: body.text,
             spans: body.spans,
@@ -55,7 +52,6 @@ export const mapPrismicPostToPostProps = ({
           };
         }),
       })),
-      // readTime: calculateReadTimeInMinutes(words),
     },
   };
 };
