@@ -7,6 +7,7 @@ import { getPrismicClient } from '../services/prismic';
 import styles from './home.module.scss';
 import { get } from '../services/fetch';
 import { mapPrismicPostsToPostPagination } from '../mapper/prismicResponse';
+import { toDefaultAppFormat } from '../util/dateUtil';
 
 export interface PrismicPosts {
   next_page: string;
@@ -56,14 +57,16 @@ export default function Home({ postsPagination }: HomeProps) {
     <div className={styles.container}>
       <main>
         {posts.map(post => (
-          <Link href={`post/${post.uid}`}>
-            <a key={post.uid}>
+          <Link key={post.uid} href={`post/${post.uid}`}>
+            <a>
               <strong>{post.data.title}</strong>
               <p>{post.data.subtitle}</p>
               <div>
                 <span>
                   <FiCalendar size="19.09" />
-                  <time>{post.first_publication_date}</time>
+                  <time>
+                    {toDefaultAppFormat(new Date(post.first_publication_date))}
+                  </time>
                 </span>
                 <span>
                   <FiAnchor size="19.09" />

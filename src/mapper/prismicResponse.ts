@@ -9,9 +9,7 @@ export const mapPrismicPostsToPostPagination = ({
   next_page,
   results: results.map(({ uid, first_publication_date, data }) => ({
     uid,
-    first_publication_date: toDefaultAppFormat(
-      new Date(first_publication_date)
-    ),
+    first_publication_date,
     data: {
       title:
         typeof data.title === 'string'
