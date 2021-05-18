@@ -25,13 +25,13 @@ export const mapPrismicPostsToPostPagination = ({
 
 export const mapPrismicPostToPostProps = ({
   first_publication_date,
+  uid,
   data,
 }: any): Post => {
   let words = 0;
   return {
-    first_publication_date: toDefaultAppFormat(
-      new Date(first_publication_date)
-    ),
+    first_publication_date,
+    uid,
     data: {
       title:
         typeof data.title === 'string'
@@ -39,6 +39,7 @@ export const mapPrismicPostToPostProps = ({
           : data.title.find(
               (title: { type: string }) => title.type === 'heading1'
             )?.text ?? '',
+      subtitle: data.subtitle,
       banner: {
         url: data.banner.url,
       },
@@ -49,15 +50,12 @@ export const mapPrismicPostToPostProps = ({
           words += body.text.split(' ').length;
           return {
             text: body.text,
+            spans: body.spans,
+            type: body.type,
           };
         }),
       })),
-      readTime: calculateReadTimeInMinutes(words),
+      // readTime: calculateReadTimeInMinutes(words),
     },
   };
-};
-
-const calculateReadTimeInMinutes = (words: number): number => {
-  const averageReadWordsPerMinute = 200;
-  return Math.ceil(words / averageReadWordsPerMinute);
 };
